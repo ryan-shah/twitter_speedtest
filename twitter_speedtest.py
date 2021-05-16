@@ -51,13 +51,13 @@ def runSpeedtest():
 	data = [hour, ping, download_mbs, upload_mbs]
 	return data
 
-def generateStatus(data):
+def generateStatus(data, expected):
 	# Create Status
 	status = 'Ping: ' + str(data[1]) + ' ms\n'
 	status += 'Download: ' + str(data[2]) + ' Mbps\n'
 	status += 'Upload: ' + str(data[3]) + ' Mbps\n'
-	status += 'Expected Download: 100 Mbps\n'
-	status += 'Difference: ' + str(100.0 - data[2]) + ' Mbps'
+	status += 'Expected Download: ' + str(expected) + ' Mbps\n'
+	status += 'Difference: ' + str(expected - data[2]) + ' Mbps'
 	print(status)
 	return status
 
@@ -148,12 +148,13 @@ def main(argv):
 	config = readConfig(config_file)
 	csv_file = config['FILES']['csv_file']
 	graph_image = config['FILES']['graph_image']
+	expected_download = int(config['NETWORK']['expected_download'])
 
 	api = connectTwitter(config)
 
 	if not graph_mode:
 		data = runSpeedtest()
-		status = generateStatus(data)
+		status = generateStatus(data, expected_download)
 		tweetStatus(api, status)
 		writeToCsv(csv_file, data)
 	else:

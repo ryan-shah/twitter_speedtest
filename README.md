@@ -21,16 +21,19 @@ There are two main functions:
 ## view in action
 [![Twitter URL](https://img.shields.io/twitter/follow/RyansWifiSpeed)](https://twitter.com/RyansWifiSpeed)
 
-Run via crontab
+Run hourly updates via crontab and output messages to log file. don't run on the hour as servers get busy
 ```
 4 * * * * /usr/bin/python ~/twitter_speedtest/twitter_speedtest.py > speedtest_log.txt 2>&1
+```
+
+Run daily graphs via crontab and output messages to log file.
+```
 0 0 * * * /usr/bin/python ~/twitter_speedtest.py -g > speedtest_graph_log.txt 2>&1
 ```
 
-
 ## configuration
 The scripts look for a config.ini file in the current working directory
-- custom .ini files can be passed with the `-i` or `--input` argument
+- other .ini files can be passed with the `-i` or `--input` argument
 
 Format should be
 
@@ -44,6 +47,9 @@ access_token_secret=YOUR_ACCESS_TOKEN_SECRET_HERE
 [FILES]
 csv_file=speedtest.csv
 graph_image=graph.png
+
+[NETWORK]
+expected_download=100
 ```
 ## dependencies
 - [speedtest-cli](https://github.com/sivel/speedtest-cli)
