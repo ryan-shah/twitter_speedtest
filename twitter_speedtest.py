@@ -64,7 +64,7 @@ def generateStatus(data):
 def tweetStatus(api, status):
 	# Tweet Result
 	print('tweeting results')
-	#api.update_status(status)
+	api.update_status(status)
 
 def writeToCsv(csv_file, data):
 	# Write data to CSV
@@ -119,7 +119,7 @@ def tweetGraph(api, graph_image):
 	yesterday = datetime.date.today() - datetime.timedelta(days=1)
 	status = 'Internet usage for ' + str(yesterday)
 	print(status)
-	#api.update_with_media(graph_image, status)
+	api.update_with_media(graph_image, status)
 
 def printUsage():
 	print('usage: twitter_speedtest.py [-g] [-i <inputfile>]')
